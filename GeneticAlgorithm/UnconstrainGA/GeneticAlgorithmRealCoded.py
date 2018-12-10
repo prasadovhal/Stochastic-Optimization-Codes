@@ -48,18 +48,28 @@ def FlatCrossover(newSolution,PopulationSize,NumOfVar):
             break
     return CrossOveredExamples
 
+def UniformMutation(CrossOveredExamples,mutationProbability):
+    mutatePopulation = []
+    for j in range(len(CrossOveredExamples)):
+        mutationExample = CrossOveredExamples[j]
+        if np.random.uniform(0,mutationProbability+0.01) <= mutationProbability:
+            mutationExample[np.random.choice(len(mutationExample))] = np.random.uniform(Range[0],Range[1])
+        mutatePopulation.append(mutationExample)
+    return mutatePopulation
+
+
 Range = (-5,5)
-PopulationSize = 100
+PopulationSize = 1000
 population = []
 NumOfVar = 2
+crossoverProbability = 0.7
+mutationProbability = 1 / PopulationSize
+generation = 1000
 
 for i in np.arange(PopulationSize):
     population.append(np.random.uniform(low = Range[0],high = Range[1],size = NumOfVar))
 
-crossoverProbability = 0.7
-mutationProbability = 1 / len(population)
-
-for k in np.arange(500):
+for k in np.arange(generation):
     print("k",k)
     "Find fitness"
     fitness = []
@@ -72,4 +82,22 @@ for k in np.arange(500):
     "Crossover"
     CrossOveredExamples = FlatCrossover(newSolution,PopulationSize,NumOfVar)
     
+    "Mutation"
+    mutatePopulation = UniformMutation(CrossOveredExamples,mutationProbability)
+    
     population = CrossOveredExamples
+
+fitness = []
+for i in np.arange(PopulationSize):
+    fitness.append(RosenBrock(population[i][0],population[i][1]))
+
+newSolution = TournamentSelection(fitness,PopulationSize)
+print(newSolution[np.argmin(fitness)])
+
+
+
+
+""" fitness = []
+    for i in range(len(newSolution)):
+        fitness.append(RosenBrock(population[i][0],population[i][1]))
+    EliteSolutions = list(np.array(newSolution)[(list(np.argsort(fitness)[0:int((1-crossoverProbability) * PopulationSize)]))])"""

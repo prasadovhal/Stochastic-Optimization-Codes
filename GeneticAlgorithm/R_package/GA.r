@@ -57,5 +57,5 @@ f8 <- function(x,y)
 	(x - 10)^2 + (y - 20)^2
 }
 
-ga8 = ga(type="real-valued",fitness=function(x) -f8(x[1],x[2]),lower=c(13,0),upper=c(100,100),maxiter=100,optim=T)#,nBits=8)
+ga8 = ga(type="real-valued",fitness=function(x) -f8(x[1],x[2]),lower=c(-10,-10),upper=c(100,100),maxiter=100,optim=T)#,nBits=8)
 

@@ -62,7 +62,7 @@ while(True):
                     AcceptedEnergyWithprob.append(E1)
 
     if start == 0:
-        x = (np.mean(m1) + np.mean(m2) * np.exp(-np.mean(AcceptedEnergyWithprob)/T0))/(np.mean(m1)+np.mean(m2))
+        x = (np.mean(m1) + np.mean(m2) * np.exp(-np.mean(AcceptedEnergyWithprob)/T0))/(m1 + m2)
         if(x < 0.95):
             T0 += 100
         else:

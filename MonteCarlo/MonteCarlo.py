@@ -21,11 +21,13 @@ def SMC():
     
     energy = []
     x_val = []
+    x_val.append(x_old)
+    energy.append(E1)
     for i in np.arange(100):
         h = 0.1 * np.random.uniform(-0.05,0.05)
         x_new = x_old + h
         E2 = f(x_new)
-        if(np.sign(E2-E1) == -1):
+        if((E2-E1) <= 0):
             x_old = x_new    
             E1 = E2
             x_val.append(x_old)

@@ -21,6 +21,8 @@ def SimulatedAnnealing():
     temp = 1000
     energy = []
     x_val = []
+    x_val.append(x_old)
+    energy.append(E1)
     while(temp >= 1):
         for i in np.arange(100):
             h = 0.1 * np.random.uniform(-0.05,0.05)
